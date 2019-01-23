@@ -18,7 +18,7 @@
 </blockquote>
 <h3 id="分析Ajax爬取今日头条街拍美图"><a href="#分析Ajax爬取今日头条街拍美图" class="headerlink" title="分析Ajax爬取今日头条街拍美图"></a>分析Ajax爬取今日头条街拍美图</h3><p>那么如何<strong>用Ajax进行分析</strong>呢？我们以爬取头条街拍图片来具体分析用Ajax分析的过程。</p>
 <p>首先打开Chrome浏览器，打开头条首页：</p>
-<p><img src="/2019/01/23/分析Ajax爬取今日头条街拍美图/home/dreamgeng/Documents/Hexo/source/_posts/2019-01-23-分析Ajax爬取今日头条街拍美图/首页.png" alt=""></p>
+<p><img src="/2019/01/23/分析Ajax爬取今日头条街拍美图/2019-01-23-分析Ajax爬取今日头条街拍美图/首页.png" alt=""></p>
 <p>然后打开 “检查” 选项，选择 Network 选项卡，刷新页面，可以看到这里出现非常多条目，但是Ajax请求有特殊的请求类型<strong>xhr</strong>，所以可以从上面的选项卡筛选出xhr类型，可以看到筛选出来的条目，即：</p>
 <p><img src="/2019/01/23/分析Ajax爬取今日头条街拍美图/home/dreamgeng/Documents/Hexo/source/_posts/2019-01-23-分析Ajax爬取今日头条街拍美图/ＸＨＲ.png" alt=""></p>
 <p>点击第一条，可以看到Requests Headers、URL和Response Headers的所有信息，其中可以看到：Requests Headers其中有一条为X-Requested-With:XMLHttpRequest，这就标记了此请求是Ajax请求。</p>
