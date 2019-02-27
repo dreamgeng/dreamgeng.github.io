@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>利用python进行数据分析之numpy基础 | dreamgeng</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">利用python进行数据分析之numpy基础</h1><a id="logo" href="/.">dreamgeng</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">利用python进行数据分析之numpy基础</h1><div class="post-meta">Feb 27, 2019<span> | </span><span class="category"><a href="/categories/数据分析/">数据分析</a></span></div><div class="post-content"><p>在准备工作完成后，进一步就是了解numpy的基本用法，这篇文章主要是做一个简单的知识点梳理，不展开。</p>
+<h3 id="numpy"><a href="#numpy" class="headerlink" title="numpy"></a>numpy</h3><p>首先，numpy 的核心特征之一就是N-维数组对象－ndarray。ndarray是python中的一个快速灵活的大型数据集容器，可以允许你使用类似于标量的操作语法在整块数据上进行数学计算。</p>
+<p>如果用 python 的列表和字典来作比较, 那么可以说 Numpy 是列表形式的，没有数值标签，而 Pandas 就是字典形式。</p>
+<p>####　导入模块</p>
+<p>在使用之前需要导入模块，我们一般的导入方法是：</p>
+<blockquote>
+<p>import numpy as np  # 这是numpy的标准导入格式</p>
+</blockquote>
+<p>创建一个 ndarray 只需调用 NumPy 的 array 函数即可：</p>
+<blockquote>
+<p>numpy.array(object, dtype = None, copy = True, order = None, subok = False, ndmin = 0)</p>
+</blockquote>
+<p><strong>参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>object</td>
+<td>数组或嵌套的数列</td>
+</tr>
+<tr>
+<td>dtype</td>
+<td>数组元素的数据类型，可选</td>
+</tr>
+<tr>
+<td>copy</td>
+<td>对象是否需要复制，可选</td>
+</tr>
+<tr>
+<td>order</td>
+<td>创建数组的样式，C为行方向，F为列方向，A为任意方向（默认）</td>
+</tr>
+<tr>
+<td>subok</td>
+<td>默认返回一个与基类类型一致的数组</td>
+</tr>
+<tr>
+<td>ndmin</td>
+<td>指定生成数组的最小维度</td>
+</tr>
+</tbody>
+</table>
+<h4 id="numpy-的属性"><a href="#numpy-的属性" class="headerlink" title="numpy 的属性:"></a>numpy 的属性:</h4><ul>
+<li><code>ndim</code>：维度</li>
+<li><code>shape</code>：行数和列数</li>
+<li><code>size</code>：元素个数</li>
+<li><code>dtype</code>：数据类型</li>
+</ul>
+<p>例如通过<code>array.ndim</code>就可以得到数组的维度了。</p>
+<h4 id="创建array的多种形式"><a href="#创建array的多种形式" class="headerlink" title="创建array的多种形式"></a>创建array的多种形式</h4><p>除了上面所说的调用 NumPy 的 array 函数创建array，还有如下形式：</p>
+<ul>
+<li><code>array</code>：创建数组</li>
+<li><code>dtype</code>：指定数据类型</li>
+<li><code>zeros</code>：创建数据全为0</li>
+<li><code>ones</code>：创建数据全为1</li>
+<li><code>empty</code>：创建数据接近0</li>
+<li><code>arrange</code>：按指定范围创建数据</li>
+<li><code>linspace</code>：创建线段</li>
+<li><code>eye,identity</code>：生成一个N*N特征矩阵</li>
+</ul>
+<h4 id="numpy数组算术"><a href="#numpy数组算术" class="headerlink" title="numpy数组算术"></a>numpy数组算术</h4><ul>
+<li><p>常用的加减乘，乘方等，但要注意的是乘方要用<code>**</code>号，比如：<code>a**2</code></p>
+</li>
+<li><p>最大，最小，求和，均值，中位数，累加，类差：<code>max,min,sum,mean,average,median,cumsum,diff</code></p>
+</li>
+<li><p>矩阵相乘：<code>np.dot()</code></p>
+</li>
+<li><p>矩阵转置：<code>np.transpose()</code></p>
+</li>
+<li><p>三角函数的运算：<code>np.sin(a)</code>  </p>
+</li>
+<li><p>逻辑判断：<code>&gt;,&lt;</code>，返回的是布尔类型的矩阵</p>
+</li>
+<li><p>如果是多维数组还可以用<code>np.reshape()</code>进行矩阵的转换</p>
+</li>
+<li><p>求矩阵中最小元素和最大元素的索引：<code>argmin()</code> 和 <code>argmax()</code> </p>
+</li>
+<li><p><code>clip()</code>函数：<code>clip(Array,Array_min,Array_max)</code></p>
+<p>其中：<code>Array</code>指的是将要被执行用的矩阵，而后面的最小值最大值则用于让函数判断矩阵中元素是否有比最小值小的或者比最大值大的元素，并将这些指定的元素转换为最小值或者最大值。</p>
+</li>
+</ul>
+<h4 id="numpy索引"><a href="#numpy索引" class="headerlink" title="numpy索引"></a>numpy索引</h4><p>索引方法和普通数组的索引方法一样，方式有很多种，但是这里不做过多总结，网上教程很详细。</p>
+<ul>
+<li>数组的切片索引</li>
+<li>布尔索引：即通过比较操作进行索引，如<code>&gt;,&lt;,==</code>等</li>
+<li>神奇索引：用于描述整数数组进行数据索引</li>
+</ul>
+<h4 id="numpy合并"><a href="#numpy合并" class="headerlink" title="numpy合并"></a>numpy合并</h4><ul>
+<li><p><code>np.vstack()</code>：即<code>vertical stack</code>属于一种上下合并，即对括号中的两个整体进行对应操作</p>
+<p>例如两个一位数组合并成为一个二维矩阵</p>
+</li>
+<li><p><code>np.hstack()</code>：左右合并</p>
+<p>例如两个一维数组合并成为长度为两个数组长度相加的新一维数组</p>
+</li>
+<li><p><code>np.newaxis()</code>：矩阵转置</p>
+</li>
+<li><p><code>np.concatenate()</code>：当要合并多个数组时，用起来会更加得心应手，除了第一个参数是要合并的数组外，第二个参数<code>axis</code>可以选择合并方向。</p>
+</li>
+</ul>
+<h4 id="numpy分割"><a href="#numpy分割" class="headerlink" title="numpy分割"></a>numpy分割</h4><ul>
+<li><code>np.split()</code>：第一个参数是要分割的对象，第二个参数是要分割为几份，第三个参数<code>axis</code>是分割方向，但是这种方式只能<strong>等量分割</strong></li>
+<li><strong>不等量分割</strong>：<code>np.array_split()</code></li>
+<li>当然还有<strong>横向和纵向分割</strong>：<code>np.vsplit(),np.hsplit()</code></li>
+</ul>
+<p>以上就是numpy一些常用的基础知识，做个总结，每个知识点的详细用法可以参考网上具体教程。</p>
+</div><div class="tags"><a href="/tags/2019-02/">2019.02</a></div><div class="post-nav"><a class="next" href="/2019/02/26/利用python进行数据分析－准备工作/">利用python进行数据分析－准备工作</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"><input type="hidden" name="sitesearch" value="http://yoursite.com"></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/myblog/">myblog</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据分析/">数据分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/爬虫/">爬虫</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/2019-01/" style="font-size: 15px;">2019.01</a> <a href="/tags/2019-02/" style="font-size: 15px;">2019.02</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/27/利用python进行数据分析之numpy基础/">利用python进行数据分析之numpy基础</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/26/利用python进行数据分析－准备工作/">利用python进行数据分析－准备工作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/23/分析Ajax爬取今日头条街拍美图/">分析Ajax爬取今日头条街拍美图</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/21/初识MySQL/">初识MySQL</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/20/pycharm配置python解释器/">pycharm配置python解释器</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/抓取猫眼Top100/">抓取猫眼Top100</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/廖雪峰实战day-2/">廖雪峰实战day-2</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/在ubuntu上搭建HEXO博客/">在ubuntu上搭建HEXO博客</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/dreamgeng/" title="Github" target="_blank">Github</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">dreamgeng.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
