@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>利用python进行数据分析之pandas基础 | dreamgeng</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">利用python进行数据分析之pandas基础</h1><a id="logo" href="/.">dreamgeng</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">利用python进行数据分析之pandas基础</h1><div class="post-meta">Feb 28, 2019<span> | </span><span class="category"><a href="/categories/数据分析/">数据分析</a></span></div><div class="post-content"><p>这篇主要是对前几天学过的pandas做一点简单的总结。</p>
+<h3 id="pandas"><a href="#pandas" class="headerlink" title="pandas"></a>pandas</h3><p>如果要把Numpy和Pandas做一个对比的话，那就是如果用 python 的列表和字典来作比较, 那么可以说 Numpy 是列表形式的，没有数值标签，而 Pandas 就是字典形式。Pandas是基于Numpy构建的，让Numpy为中心的应用变得更加简单。</p>
+<p>对Pandas进行了解，首先要了解的是它的两种主要的数据结构：Series和DataFrame。</p>
+<h4 id="Series和DataFrame"><a href="#Series和DataFrame" class="headerlink" title="Series和DataFrame"></a>Series和DataFrame</h4><p><code>Series</code>的字符串表现形式为：</p>
+<p>索引在左边，值在右边。由于我们没有为数据指定索引。于是会自动创建一个0到N-1（N为长度）的整数型索引。</p>
+<p>如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">s = pd.Series([<span class="number">1</span>,<span class="number">3</span>,<span class="number">6</span>,np.nan,<span class="number">44</span>,<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">print(s)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">0     1.0</span></span><br><span class="line"><span class="string">1     3.0</span></span><br><span class="line"><span class="string">2     6.0</span></span><br><span class="line"><span class="string">3     NaN</span></span><br><span class="line"><span class="string">4    44.0</span></span><br><span class="line"><span class="string">5     1.0</span></span><br><span class="line"><span class="string">dtype: float64</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<p>而<code>DataFrame</code>是一个表格型的数据结构：</p>
+<ol>
+<li>它包含有一组有序的列，每列可以是不同的值类型（数值，字符串，布尔值等）</li>
+<li><code>DataFrame</code>既有行索引也有列索引</li>
+<li>它可以被看做由<code>Series</code>组成的大字典。</li>
+</ol>
+<p>如下：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">dates = pd.date_range('<span class="number">20190101</span>',periods=<span class="number">6</span>)</span><br><span class="line">df = pd.DataFrame(np.random.randn(<span class="number">6</span>,<span class="number">4</span>),index=dates,columns=['a','b','c','d'])</span><br><span class="line"></span><br><span class="line">print(df)</span><br><span class="line">"""</span><br><span class="line">                   a         b         c         d</span><br><span class="line"><span class="number">2019-01-01</span> -<span class="number">0.253065</span> -<span class="number">2.071051</span> -<span class="number">0.640515</span>  <span class="number">0.613663</span></span><br><span class="line"><span class="number">2019-01-02</span> -<span class="number">1.147178</span>  <span class="number">1.532470</span>  <span class="number">0.989255</span> -<span class="number">0.499761</span></span><br><span class="line"><span class="number">2019-01-03</span>  <span class="number">1.221656</span> -<span class="number">2.390171</span>  <span class="number">1.862914</span>  <span class="number">0.778070</span></span><br><span class="line"><span class="number">2019-01-04</span>  <span class="number">1.473877</span> -<span class="number">0.046419</span>  <span class="number">0.610046</span>  <span class="number">0.204672</span></span><br><span class="line"><span class="number">2019-01-05</span> -<span class="number">1.584752</span> -<span class="number">0.700592</span>  <span class="number">1.487264</span> -<span class="number">1.778293</span></span><br><span class="line"><span class="number">2019-01-06</span>  <span class="number">0.633675</span> -<span class="number">1.414157</span> -<span class="number">0.277066</span> -<span class="number">0.442545</span></span><br><span class="line">"""</span><br></pre></td></tr></table></figure>
+<p>既然是字典形式，那么就可以根据索引来选择数据了。</p>
+<p>同时，<code>DataFrame</code>也有一些简单的应用：</p>
+<ol>
+<li><code>dtype</code>：查看数据的类型</li>
+<li><code>index</code>：查看序列的序号</li>
+<li><code>values</code>：查看序列的值</li>
+<li><code>describe()</code>：查看序列的总结，如每一行（列）的最大值，最小值，平均值等</li>
+<li><code>transpose</code>：翻转数据</li>
+<li><code>sort_index与sort_values</code>：对数据的index或values进行排序输出</li>
+<li>根据标签<code>loc</code>：使用标签来选择数据，可以通过标签名字选择某一行数据， 或者通过选择某行或者所有行（<code>:</code>代表所有行）然后选其中某一列或几列数据。</li>
+<li>根据序列<code>iloc</code>：采用位置进行选择，可以通过位置选择在不同情况下所需要的数据，例如选某一个，连续选或者跨行选等操作。</li>
+<li>两种混合的<code>lc</code>：采用混合选择，其中选择’A’和’C’的两列，并选择前三行的数据，如下：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">print(df.ix[:<span class="number">3</span>,[<span class="string">'A'</span>,<span class="string">'C'</span>]])</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">            A   C</span></span><br><span class="line"><span class="string">2013-01-01  0   2</span></span><br><span class="line"><span class="string">2013-01-02  4   6</span></span><br><span class="line"><span class="string">2013-01-03  8  10</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<ol start="10">
+<li>通过判断筛选：采用判断指令 (Boolean indexing) 进行选择. 我们可以约束某项条件然后选择出当前所有数据.</li>
+</ol>
+<h4 id="pandas设置值"><a href="#pandas设置值" class="headerlink" title="pandas设置值"></a>pandas设置值</h4><ol>
+<li>根据位置设置<code>loc</code> <code>iloc</code>：利用索引或者标签确定需要修改值的位置。</li>
+<li>根据判断条件设置：如当某行的值大于某个值时，设置另一行为０等</li>
+<li>按行或列设置</li>
+</ol>
+<h4 id="pandas处理丢失数据"><a href="#pandas处理丢失数据" class="headerlink" title="pandas处理丢失数据"></a>pandas处理丢失数据</h4><p>有时候我们导入或处理数据, 会产生一些空的或者是 <code>NaN</code> 数据,如何删除或者是填补这些 <code>NaN</code> 数据呢？</p>
+<ol>
+<li><code>pd.dropna()</code>：直接去掉是空的数据</li>
+<li><code>pd.fillna()</code>：将na的值用其他值替代</li>
+<li><code>pd.isnull()</code>：判断是否为空，并用布尔值填充</li>
+</ol>
+<h4 id="pandas导入导出"><a href="#pandas导入导出" class="headerlink" title="pandas导入导出"></a>pandas导入导出</h4><p><code>pandas</code>可以读取与存取的资料格式有很多种，像<code>csv</code>、<code>excel</code>、<code>json</code>、<code>html</code>与<code>pickle</code>等…</p>
+<p>这里以csv格式为例做个总结：</p>
+<ol>
+<li><code>pd.read_csv()</code>：读取文件</li>
+<li><code>to_pickle()</code>：将文件存为pickle格式</li>
+</ol>
+<h4 id="pandas合并"><a href="#pandas合并" class="headerlink" title="pandas合并"></a>pandas合并</h4><h5 id="concat"><a href="#concat" class="headerlink" title="concat"></a>concat</h5><p><code>pandas</code>处理多组数据的时候往往会要用到数据的合并处理,使用 <code>concat</code>是一种基本的合并方式.而且<code>concat</code>中有很多参数可以调整,合并成你想要的数据形式.</p>
+<p>参数说明：</p>
+<ol>
+<li><code>axis</code>：通过设置参数axis改变合并方向，默认为０；</li>
+<li><code>ignore_index</code>：重置index，将ignore_index设置为True即可重置</li>
+<li><code>join</code>：合并方式，函数默认<code>join=&#39;outer&#39;</code>，<code>outer</code>相当于并集，而设置为<code>inner</code>则相当于交集，并结合<code>axis</code>参数选择合并方向，合并之后的空值用NaN填充</li>
+<li><code>join_axes</code>：依照axes合并，如：<code>join_axes=index</code></li>
+<li><code>append</code>：添加数据，但是只有纵向添加，没有横向</li>
+</ol>
+<h5 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h5><p><code>pandas</code>中的<code>merge</code>和<code>concat</code>类似,但主要是用于<strong>两组有key column的数据</strong>,统一索引的数据. 通常也被用在Database的处理当中.</p>
+<p>参数说明：</p>
+<ol>
+<li><p>依据一组key合并：<code>pd.merge(left, right, on=&#39;key&#39;)</code>,left,right分别为两组DataFrame</p>
+</li>
+<li><p>依据两组key合并：</p>
+<p>合并时有4种方法<code>how = [&#39;left&#39;, &#39;right&#39;, &#39;outer&#39;, &#39;inner&#39;]</code>，预设值<code>how=&#39;inner&#39;</code>。</p>
+</li>
+<li><p><code>indicater</code>：<code>indicator=True</code>会将合并的记录放在新的一列。</p>
+</li>
+<li><p>同样也可以依据<code>index</code>合并</p>
+</li>
+</ol>
+<h4 id="可视化"><a href="#可视化" class="headerlink" title="可视化"></a>可视化</h4><p>这里就涉及到了<code>matplotlib</code>，如果我们需要<code>plot</code>一个数据，我们可以使用 <code>plt.plot(x=, y=)</code>，把<code>x</code>,<code>y</code>的数据作为参数存进去，就可以生成我们想要的图了，<code>plot</code> 还可以指定很多参数，可以下来自己查一下。</p>
+<p>除了<code>plot</code>，我们经常会用到还有<code>scatter</code>，一种是线性的方式，一种是散点图。</p>
+</div><div class="tags"><a href="/tags/2019-02/">2019.02</a></div><div class="post-nav"><a class="next" href="/2019/02/27/利用python进行数据分析之numpy基础/">利用python进行数据分析之numpy基础</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"><input type="hidden" name="sitesearch" value="http://yoursite.com"></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/myblog/">myblog</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据分析/">数据分析</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/爬虫/">爬虫</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/2019-01/" style="font-size: 15px;">2019.01</a> <a href="/tags/2019-02/" style="font-size: 15px;">2019.02</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/28/利用python进行数据分析之pandas基础/">利用python进行数据分析之pandas基础</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/27/利用python进行数据分析之numpy基础/">利用python进行数据分析之numpy基础</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/26/利用python进行数据分析－准备工作/">利用python进行数据分析－准备工作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/23/分析Ajax爬取今日头条街拍美图/">分析Ajax爬取今日头条街拍美图</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/21/初识MySQL/">初识MySQL</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/20/pycharm配置python解释器/">pycharm配置python解释器</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/15/抓取猫眼Top100/">抓取猫眼Top100</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/廖雪峰实战day-2/">廖雪峰实战day-2</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/12/在ubuntu上搭建HEXO博客/">在ubuntu上搭建HEXO博客</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/dreamgeng/" title="Github" target="_blank">Github</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">dreamgeng.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
